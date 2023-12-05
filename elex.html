@@ -21,12 +21,12 @@
                         <input type="text" id="name" name="user_name" />
                     </li>
                     <li>
-                        <label for="mail">Email:</label>
-                        <input type="email" id="mail" name="user_email" />
+                        <label for="Designation">Designation</label>
+                        <input type="text" id="Designation" name="user_email" />
                     </li>
                     <li>
-                        <label for="msg">Message:</label>
-                        <textarea id="msg" name="user_message"></textarea>
+                        <label for="Address">Address:</label>
+                        <textarea id="Address" name="user_message"></textarea>
                     </li>
                     <li>
                         <label for="employeeId">Enter Employee ID:</label>
@@ -35,24 +35,65 @@
                     <li class="button">
                         <button type="button" onclick="validateEmployeeId()">Send your message</button>
                     </li>
-                </ul>
+                            <li>
+                                <label for="Loan Amount"> Loan Amount:</label>
+                                <input type="text" id="Loan Amount" name="Loan Amount" required>
+                            </li>
+                      
+                      
+                             
+                      <li>
+                      
+                             <label for="interest"> interest:</label>
+                                <input type="text" id="interest" name="interest" required>
+                      </li>
+                      <tr>
+                        <th>Maturity Date</th>
+                        <td><input type="text" name="maturityDate" 
+                            placeholder="mm/dd/yyyy" id="maturityDate"></td>
+                            <li>
+                      
+                                <label for="maturityDate"> maturityDate:</label>
+                                   <input type="date" id="maturityDate" name="maturityDate" required>
+                         </li>
+                      
+                    
+                    
+                        </ul>
             </form>
+            <button type="button" onclick="calculateLoan()" style="margin: 50px 40px;"> Calculate</button>
+                    <div id="result"></div>
+                
             <p id="error-message"></p>
         </main>
         <script>
-            function validateEmployeeId() {
-                var employeeId = document.getElementById('employeeId').value;
+            function calculateLoan() {
+      var employeeID = document.getElementById('employeeID').value;
+      var designation = document.getElementById('designation').value;
+      var loanAmount = parseFloat(document.getElementById('loanAmount').value);
+      var interestRate = 0;
 
-                if (employeeId.length === 4 && employeeId.startsWith('E')) {
-                    document.getElementById('error-message').innerText = 'Employee ID is valid.';
-               
+      if (employeeID.length < 4 || employeeID.charAt(0) !== 'E') {
+        alert('Invalid Employee ID. It must be at least four characters and start with the letter E.');
+        return;
+      }
 
-             
-                    document.getElementById('employeeForm').submit();
-                } else {
-                    document.getElementById('error-message').innerText = 'Employee ID must have exactly 4 characters and start with "E".';
-                }
-            }
+      switch (designation) {
+        case 'Assistent':
+          interestRate = 0.1;
+          break;
+        case 'Developer':
+          interestRate = 0.08;
+          break;
+        default:
+          interestRate = 0.05;
+      }
+
+      var totalInterest = loanAmount * interestRate;
+      var totalAmount = loanAmount + totalInterest;
+
+      document.getElementById('result').innerHTML = 'Total Interest: $' + totalInterest.toFixed(2) + '<br>Total Amount Payable: $' + totalAmount.toFixed(2);
+    }
         </script>
     </body>
 </html>
